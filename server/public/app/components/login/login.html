@@ -1,0 +1,11 @@
+<!-- //The login method of our component will be called when the users clicks on login button -->
+
+<form (submit)="login($event, email.value, password.value)">
+  <label for="email">email</label>
+  <!-- Using #email, we can identify this input to get the value on the form's submit event -->
+  <input type="text" #email class="form-control" id="email" placeholder="email">
+  <label for="password">Password</label>
+  <!-- Using #password we can identify this input to get its value -->
+  <input type="password" #password class="form-control" id="password" placeholder="Password">
+  <button type="submit">Login</button>
+</form>

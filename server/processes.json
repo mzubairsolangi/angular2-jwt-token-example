@@ -1,0 +1,12 @@
+{
+    "name": "node-docker",
+    "script"      : "/app/server/bin/www",
+    "watch": ["/app/server/"],
+    "ignore_watch" : ["/app/server/node_modules", "/app/server/public", "/app/server/views"],
+    "log_date_format"  : "YYYY-MM-DD HH:mm Z",
+    "watch_options": {
+        "usePolling": true,
+        "useFsEvents": false,
+        "atomic": false
+    }
+}

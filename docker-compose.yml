@@ -1,0 +1,57 @@
+nginxBalancer:
+  image: nginx
+  expose:
+    - 80:80
+    - 8080:8080
+  ports:
+    - 80:80
+    - 8080:8080
+  volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  links:
+    - node1
+    - node2
+    - rethinkDb
+  command: bash -c "export TERM=xterm && service nginx start"
+
+node1:
+  image: giuraandrei70/node
+  hostname: nodejs1
+  links:
+    - redisServer
+    - rethinkDb
+  expose:
+    - 3000
+  ports:
+    - 3000
+  volumes:
+    - ./server:/app/server
+  command: bash -c "cd /app/server && npm install && PORT=3000 pm2 start /app/server/processes.json --no-daemon"
+
+node2:
+  image: giuraandrei70/node
+  hostname: nodejs2
+  links:
+    - redisServer
+    - rethinkDb
+  expose:
+    - 3000
+  ports:
+    - 3000
+  volumes:
+    - ./server:/app/server
+  command: bash -c "cd /app/server && npm install && PORT=3000 pm2 start /app/server/processes.json --no-daemon"
+
+redisServer:
+  image: redis
+  hostname: redis
+  command: bash -c "redis-server"
+
+rethinkDb:
+  image: giuraandrei70/rethinkdb
+  hostname: db1
+  expose:
+    - 29015
+    - 28015
+    - 8080:8080
+  command: "rethinkdb --bind all"
