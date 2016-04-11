@@ -7,6 +7,7 @@ var db = function db(){
 
     //this function will be called when the node.js instance is launced
     this.initDb = function(callback) {
+  
       async.waterfall([
         //this function will connect to the database
         function connect(callback) {
@@ -92,7 +93,7 @@ var db = function db(){
         }
       });
     }
-    
+
     this.validate = function(username, password, callback) {
       // this is the equivalent of SELECT * from users WHERE email = username AND passwprd = password
       r.table("users").filter({
